@@ -5,3 +5,11 @@ project/
  │   └─ db.npy          ← 최초 실행 시 자동 생성
  └─ templates/
      └─ index.html
+
+
+# multi_face/faces
+ faces
+  ├─노무현
+      └─1.jpg
+      └─2.jpg
+      └─3.jpg
