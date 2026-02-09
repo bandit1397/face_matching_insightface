@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>치매노인 얼굴 대조</title>
+<style>
+body{font-family:sans-serif;background:#f2f2f2;padding:20px}
+.box{background:#fff;padding:20px;border-radius:10px}
+button{padding:10px 20px;font-size:16px}
+img{width:120px;border:2px solid #333;margin:5px}
+</style>
+</head>
+<body>
+
+<div class="box">
+  <h2>📷 발견 치매노인 얼굴 대조</h2>
+  <input type="file" id="photo">
+  <button onclick="compare()">대조 시작</button>
+  <hr>
+  <div id="result"></div>
+</div>
+
+<script>
+function compare(){
+  const file=document.getElementById("photo").files[0];
+  if(!file){ alert("사진을 선택하세요"); return; }
+
+  const form=new FormData();
+  form.append("photo",file);
+
+  fetch("/compare",{method:"POST",body:form})
+  .then(r=>r.json())
+  .then(data=>{
+    let html="";
+    if(data.length===0){
+      html="얼굴 인식 실패";
+    }
+    data.forEach(d=>{
+      html+=`<div>
+        <b>${d.name}</b> (${d.score}%)
+        <br><img src="${d.image}">
+      </div><br>`;
+    });
+    document.getElementById("result").innerHTML=html;
+  });
+}
+</script>
+
+</body>
+</html>
