@@ -68,6 +68,8 @@ def index():
 # =========================
 @app.route("/compare", methods=["POST"])
 def compare():
+    global db
+    db = build_db()   # 🔥 매 요청마다 DB 재생성
     file = request.files["photo"]
     temp_path = os.path.join(DATA_DIR, "input.jpg")
     file.save(temp_path)
@@ -79,7 +81,8 @@ def compare():
     results = []
     for name, emb in db.items():
         score = float(np.dot(input_emb, emb))
-        results.append((name, score))
+        if score >= 0.7:   # 🔥 70% 이상만 통과
+            results.append((name, score))
 
     results.sort(key=lambda x: x[1], reverse=True)
     top = results[:5]
