@@ -29,3 +29,4 @@ project/
    - C:\Users\owner\AppData\Local\Programs\Python\Python311\python.exe -m pip install onnxruntime
      
 - http://127.0.0.1:5000
+- C:\Users\owner\Desktop\ALTS
