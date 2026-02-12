@@ -2,6 +2,8 @@ import os
 import sys
 import cv2
 import numpy as np
+import webbrowser
+import threading
 from flask import Flask, render_template, request, jsonify, send_from_directory
 from insightface.app import FaceAnalysis
 
@@ -187,4 +189,9 @@ def face_image(filename):
 # 실행
 # =========================
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=5000)
+    def open_browser():
+        webbrowser.open("http://127.0.0.1:5000")
+
+    threading.Timer(1.0, open_browser).start()
+
+    app.run(host="127.0.0.1", port=5000, debug=False)
