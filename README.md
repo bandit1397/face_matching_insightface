@@ -1,5 +1,15 @@
 # Python 3.11
+# python 3.10 is safer when using InsightFace  
+  3.11 introduced internal ABI changes.
+  PyInstaller sometimes fails to bundle ONNX correctly.
+  
+# face_app.get 오류: 'NoneType' object has no attribute 'shape'
+  onnxruntime_providers_cpu.dll 검토
 
+  pip uninstall onnxruntime -y
+  pip install onnxruntime==1.24.1
+
+##  
 project/
  ├─ app.py
  ├─ faces/              ← 치매노인 사진 500장 (jpg/png)
@@ -16,24 +26,40 @@ project/
       └─2.jpg
       └─3.jpg
       
-# pyinstaller
-- ALTS
+
+# ALTS
    ├─apps.py
    ├─apps.speck
    ├─data(folder)
    ├─faces(folder)
+   ├─templates(folder)
 
-- C:\Users\owner\AppData\Local\Programs\Python\Python311\python.exe -m PyInstaller --onefile --add-data "templates;templates" --add-data "faces;faces" --add-data "data;data" apps.py
-
-- ImportError: Unable to import dependency onnxruntime.
-   - C:\Users\owner\AppData\Local\Programs\Python\Python311\python.exe -m pip install onnxruntime
-     
-- http://127.0.0.1:5000
+  
+# pyinstaller
 - C:\Users\owner\Desktop\ALTS
-
 - pyinstaller --noconfirm --onedir ^
 --collect-all onnxruntime ^
 --collect-all insightface ^
 --add-data "templates;templates" ^
 --add-data "models;models" ^
 apps.py
+
+# pyinstaller 결과
+ ALTS
+   ├─apps.py
+   ├─apps.speck
+   ├─data(folder)
+   ├─faces(folder)
+   ├─templates(folder)
+   ├─build(folder)
+   ├─dist(folder)
+       ├─apps
+          ├─_internsl
+          └─apps.exe
+          ├─faces(복사 생성)
+          ├─data(apps.exe 실행시 생성됨)
+
+
+
+
+ 
