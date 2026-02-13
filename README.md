@@ -30,3 +30,10 @@ project/
      
 - http://127.0.0.1:5000
 - C:\Users\owner\Desktop\ALTS
+
+- pyinstaller --noconfirm --onedir ^
+--collect-all onnxruntime ^
+--collect-all insightface ^
+--add-data "templates;templates" ^
+--add-data "models;models" ^
+apps.py
